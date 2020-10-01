@@ -94,4 +94,19 @@ Let us see the stack of layers inside the image. We will use the [dive](https://
     Hendis-MacBook-Pro:springboot-docker-buildpacks hendisantika$ 
 
     ```
-    
+8. Building a Container Image with Jib
+    Jib is an image builder plugin from Google and provides an alternate method of building a container image from source code.
+
+    We configure the jib-maven-plugin in pom.xml:
+    ```shell script
+    <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>2.5.2</version>
+   </plugin>
+    ```
+   
+   Next, we trigger the Jib plugin with the Maven command to build the application and create the container image. As before, we are not using any Docker file here:
+   ```docker
+    mvn compile jib:build -Dimage=<docker registry name>/usersignup:v1
+    ```
