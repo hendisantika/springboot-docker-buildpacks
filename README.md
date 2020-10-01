@@ -39,4 +39,23 @@
     alpine/git          latest              94f8849864da        8 days ago          28.4MB
     ```
 6. Viewing the Layers Inside the Container Image
-Let us see the stack of layers inside the image. We will use the dive tool to view those layers:
+Let us see the stack of layers inside the image. We will use the [dive](https://github.com/wagoodman/dive) tool to view those layers:
+    ```shell script
+    │ Layers ├─────────────────────────────────────────────────────────────────────────── ┃ ● Current Layer Contents ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    Cmp   Size  Command                                                                   Permission     UID:GID       Size  Filetree
+        5.6 MB  FROM 31609b718dd2bed                                                      -rw-r--r--         0:0      20 MB  ├── application.jar
+         14 MB  apk add --no-cache tzdata --virtual .build-deps curl binutils zstd     && drwxr-xr-x         0:0     841 kB  ├── bin                    
+        129 MB  set -eux;     apk add --no-cache --virtual .fetch-deps curl;     ARCH="$( -rwxrwxrwx         0:0        0 B  │   ├── arch → /bin/busybox
+         20 MB  COPY target/*.jar application.jar # buildkit                              -rwxrwxrwx         0:0        0 B  │   ├── ash → /bin/busybox   
+                                                                                          -rwxrwxrwx         0:0        0 B  │   ├── base64 → /bin/busybox  
+    │ Layer Details ├──────────────────────────────────────────────────────────────────── -rwxrwxrwx         0:0        0 B  │   ├── bbconfig → /bin/busybox
+                                                                                          -rwxr-xr-x         0:0     841 kB  │   ├── busybox           
+    Tags:   (unavailable)                                                                 -rwxrwxrwx         0:0        0 B  │   ├── cat → /bin/busybox  
+    Id:     aeea6b61a974e24c959ce5c288c930a985e0acb4f8b32aa703f610d2a9d0fffd              -rwxrwxrwx         0:0        0 B  │   ├── chgrp → /bin/busybox
+    Digest: sha256:ccdb1befa51aa150597d1d5ba127863d2858a46f60212416c127508aca8e27ee       -rwxrwxrwx         0:0        0 B  │   ├── chmod → /bin/busybox
+    Command:                                                                              -rwxrwxrwx         0:0        0 B  │   ├── chown → /bin/busybox 
+    COPY target/*.jar application.jar # buildkit                                          -rwxrwxrwx         0:0        0 B  │   ├── conspy → /bin/busybox
+                                                                                          -rwxrwxrwx         0:0        0 B  │   ├── cp → /bin/busybox  
+    │ Image Details ├──────────────────────────────────────────────────────────────────── -rwxrwxrwx         0:0        0 B  │   ├── date → /bin/busybox
+    ▏^C Quit ▏Tab Switch view ▏^F Filter ▏Space Collapse dir ▏^Space Collapse all dir ▏^A Added ▏^R Removed ▏^M Modified ▏^U Unmodified ▏^B Attributes ▏                        
+    ```
