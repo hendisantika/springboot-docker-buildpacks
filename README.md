@@ -59,41 +59,45 @@ Let us see the stack of layers inside the image. We will use the [dive](https://
     │ Image Details ├──────────────────────────────────────────────────────────────────── -rwxrwxrwx         0:0        0 B  │   ├── date → /bin/busybox
     ▏^C Quit ▏Tab Switch view ▏^F Filter ▏Space Collapse dir ▏^Space Collapse all dir ▏^A Added ▏^R Removed ▏^M Modified ▏^U Unmodified ▏^B Attributes ▏                        
     ```
- 7. Using the Spring Boot Plugin
-    The Spring Boot plugin creates OCI images from the source code using a Buildpack. Images are built using the `bootBuildImage` task (Gradle) or the `spring-boot:build-image` goal (Maven) and a local Docker installation.
- 
-    We can customize the name of the image required for pushing to the Docker Registry by specifying the name in the image tag:
-    ```shell script
-    <plugin>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-maven-plugin</artifactId>
-      <configuration>
-        <image>
-          <name>docker.io/hendisantika/${project.artifactId}:v1</name>
-        </image>
-      </configuration>
-    </plugin>
-    ```
-    
-    Let us use Maven to run the `build-image` goal to build the application and create the container image. We are not using any Docker file now.
-    ```shell script
-    mvn spring-boot:build-image
-    ```
-    
-    From the output, we can see the paketo Cloud-Native buildpack being used to build a runnable OCI image. As we did earlier, we can see the image listed as a Docker image by running the command:
-    ```docker
-    docker images 
-    
-    Hendis-MacBook-Pro:springboot-docker-buildpacks hendisantika$ docker images 
-    REPOSITORY                                  TAG                     IMAGE ID            CREATED             SIZE
-    usersignup                                  v1                      13e8f3715373        13 minutes ago      169MB
-    paketobuildpacks/run                        base-cnb                b4873a43e158        4 days ago          83.3MB
-    alpine/git                                  latest                  94f8849864da        8 days ago          28.4MB
-    gcr.io/paketo-buildpacks/builder            base-platform-api-0.3   35ac1eee07a7        40 years ago        666MB
-    hendisantika/springboot-docker-buildpacks   v1                      9e48ca5913e3        40 years ago        256MB
-    Hendis-MacBook-Pro:springboot-docker-buildpacks hendisantika$ 
+7. Using the Spring Boot Plugin The Spring Boot plugin creates OCI images from the source code using a Buildpack. Images
+   are built using the `bootBuildImage` task (Gradle) or the `spring-boot:build-image` goal (Maven) and a local Docker
+   installation.
 
-    ```
+   We can customize the name of the image required for pushing to the Docker Registry by specifying the name in the
+   image tag:
+   ```shell script
+   <plugin>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-maven-plugin</artifactId>
+     <configuration>
+       <image>
+         <name>docker.io/hendisantika/${project.artifactId}:v1</name>
+       </image>
+     </configuration>
+   </plugin>
+   ```
+
+   Let us use Maven to run the `build-image` goal to build the application and create the container image. We are not
+   using any Docker file now.
+   ```shell script
+   mvn spring-boot:build-image
+   ```
+
+   From the output, we can see the paketo Cloud-Native buildpack being used to build a runnable OCI image. As we did
+   earlier, we can see the image listed as a Docker image by running the command:
+   ```docker
+   docker images 
+    
+   Hendis-MacBook-Pro:springboot-docker-buildpacks hendisantika$ docker images 
+   REPOSITORY                                  TAG                     IMAGE ID            CREATED             SIZE
+   usersignup                                  v1                      13e8f3715373        13 minutes ago      169MB
+   paketobuildpacks/run                        base-cnb                b4873a43e158        4 days ago          83.3MB
+   alpine/git                                  latest                  94f8849864da        8 days ago          28.4MB
+   gcr.io/paketo-buildpacks/builder            base-platform-api-0.3   35ac1eee07a7        40 years ago        666MB
+   hendisantika/springboot-docker-buildpacks   v1                      9e48ca5913e3        40 years ago        256MB
+   Hendis-MacBook-Pro:springboot-docker-buildpacks hendisantika$ 
+
+   ```
 8. Building a Container Image with Jib
     Jib is an image builder plugin from Google and provides an alternate method of building a container image from source code.
 
@@ -102,13 +106,16 @@ Let us see the stack of layers inside the image. We will use the [dive](https://
     <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>2.5.2</version>
+        <version>3.1.4</version>
    </plugin>
     ```
-   
-   Next, we trigger the Jib plugin with the Maven command to build the application and create the container image. As before, we are not using any Docker file here:
+
+   Next, we trigger the Jib plugin with the Maven command to build the application and create the container image. As
+   before, we are not using any Docker file here:
    ```docker
     mvn compile jib:build -Dimage=<docker registry name>/usersignup:v1
     ```
-   
-   Source [article link](https://reflectoring.io/spring-boot-docker/).
+   Run docker image: `docker run -p 8080:8080 hendisantika/springboot-docker-buildpacks:v1`
+9. Open your favorite browser: http://localhost:8080/actuator
+
+Source [article link](https://reflectoring.io/spring-boot-docker/).
