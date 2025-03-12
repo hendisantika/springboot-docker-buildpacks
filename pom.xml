@@ -60,7 +60,16 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>docker.io/hendisantika/${project.artifactId}:v1</name>
+                        <buildpacks>
+                            <buildpack>gcr.io/paketo-buildpacks/amazon-corretto:latest</buildpack>
+                            <buildpack>gcr.io/paketo-buildpacks/executable-jar:latest</buildpack>
+                            <buildpack>gcr.io/paketo-buildpacks/spring-boot:latest</buildpack>
+                        </buildpacks>
+                        <!--                        <name>docker.io/hendisantika/${project.artifactId}:v1</name>-->
+                        <!--                        <builder>bellsoft/buildpacks.builder:musl</builder>-->
+                        <env>
+                            <BP_JVM_VERSION>21</BP_JVM_VERSION>
+                        </env>
                     </image>
                     <layers>
                         <enabled>true</enabled>
