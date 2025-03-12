@@ -3,7 +3,6 @@ package com.hendisantika.springbootdockerbuildpacks;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> fetchUsers() {
-        return Arrays.asList(User.builder()
+        return List.of(User.builder()
                         .firstName("Uzumaki")
                         .lastName("Naruto")
                         .email("uzumaki_naruto@konohagakure.co.jp")
