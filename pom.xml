@@ -18,6 +18,7 @@
         <java.version>21</java.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven.compiler.proc>full</maven.compiler.proc>
+        <start-class>com.hendisantika.springbootdockerbuildpacks.SpringbootDockerBuildpacksApplication</start-class>
     </properties>
 
     <dependencies>
@@ -62,11 +63,10 @@
                     <image>
                         <buildpacks>
                             <buildpack>gcr.io/paketo-buildpacks/amazon-corretto:latest</buildpack>
-                            <buildpack>gcr.io/paketo-buildpacks/executable-jar:latest</buildpack>
-                            <buildpack>gcr.io/paketo-buildpacks/spring-boot:latest</buildpack>
+                            <buildpack>gcr.io/paketo-buildpacks/ca-certificates:latest</buildpack>
+                            <buildpack>gcr.io/paketo-buildpacks/java:latest</buildpack>
                         </buildpacks>
-                        <!--                        <name>docker.io/hendisantika/${project.artifactId}:v1</name>-->
-                        <!--                        <builder>bellsoft/buildpacks.builder:musl</builder>-->
+                        <name>docker.io/hendisantika/${project.artifactId}:${project.version}</name>
                         <env>
                             <BP_JVM_VERSION>21</BP_JVM_VERSION>
                         </env>
