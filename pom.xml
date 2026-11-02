@@ -15,7 +15,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
         <maven.compiler.proc>full</maven.compiler.proc>
         <start-class>com.hendisantika.springbootdockerbuildpacks.SpringbootDockerBuildpacksApplication</start-class>
@@ -33,7 +33,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -68,7 +67,7 @@
                         </buildpacks>
                         <name>docker.io/hendisantika/${project.artifactId}:${project.version}</name>
                         <env>
-                            <BP_JVM_VERSION>21</BP_JVM_VERSION>
+                            <BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
                         </env>
                     </image>
                     <layers>

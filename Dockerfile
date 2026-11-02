@@ -1,4 +1,4 @@
-FROM amazoncorretto:21
+FROM amazoncorretto:25
 MAINTAINER Hendi Santika "hendisantika@yahoo.co.id"
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} application.jar
